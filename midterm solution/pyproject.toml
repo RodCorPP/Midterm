@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "midterm-mpi-planner"
+version = "1.0.0"
+description = "Planificador de DAG ponderado con análisis JEV y ejecución MPI para MCP"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+mpi = ["mpi4py>=4.1,<5"]
+mcp = ["mcp>=1.28,<2"]
+all = ["mpi4py>=4.1,<5", "mcp>=1.28,<2"]
+
+[project.scripts]
+midterm = "midterm.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["midterm*"]

@@ -1,0 +1,145 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Reporte del planificador</title>
+<style>body{font:16px system-ui,sans-serif;background:#f5f7fb;color:#172033;max-width:1100px;margin:40px auto;padding:0 24px}h1{font-size:32px}h2{margin-top:36px}.meta{color:#526078}.metrics{display:flex;gap:16px;flex-wrap:wrap}.metric{background:white;padding:20px;min-width:150px;border-radius:12px;border:1px solid #dbe1eb}.metric strong{display:block;font-size:28px;margin-top:8px}table{width:100%;border-collapse:collapse;background:white}th,td{padding:12px;border-bottom:1px solid #dde3eb;text-align:left}small{display:block;color:#526078}.track{position:relative;width:65%;background:repeating-linear-gradient(90deg,#fff,#fff 9.9%,#e8edf3 10%)}.track span{position:absolute;top:18px;height:22px;border-radius:4px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:white;padding:20px;border-radius:12px}code{font:14px ui-monospace,monospace}li{margin-bottom:8px}</style>
+<body><p class="meta">MIDTERM · PLANIFICACIÓN DISTRIBUIDA</p><h1>Herramientas MCP reales sobre stdio</h1><p>Backend: <b>local</b> · Analizador: <b>heuristic</b> · Resultado: <b>Correcto</b></p>
+<div class="metrics"><div class="metric">Tiempo total<strong>3.679 s</strong></div><div class="metric">Workers<strong>3</strong></div><div class="metric">Tareas correctas<strong>4/4</strong></div><div class="metric">Utilización estimada<strong>43.5%</strong></div></div>
+<h2>Cronograma observado</h2><p class="meta">Cada barra usa tiempos del coordinador. La duración incluye el proceso aislado y, para MCP, la conexión al servidor.</p><table><thead><tr><th>Tarea</th><th>0 a 3.679 segundos</th><th>Duración</th></tr></thead><tbody><tr><td>generate<small>Worker 1 · intento 1</small></td><td class="track"><span style="left:0.001%;width:42.945%;background:#2563eb" title="generate"></span></td><td>1.580 s</td></tr><tr><td>anomalies<small>Worker 1 · intento 1</small></td><td class="track"><span style="left:42.947%;width:32.910%;background:#2563eb" title="anomalies"></span></td><td>1.211 s</td></tr><tr><td>statistics<small>Worker 2 · intento 1</small></td><td class="track"><span style="left:42.948%;width:30.395%;background:#0d9488" title="statistics"></span></td><td>1.118 s</td></tr><tr><td>summary<small>Worker 1 · intento 1</small></td><td class="track"><span style="left:75.860%;width:24.140%;background:#2563eb" title="summary"></span></td><td>0.888 s</td></tr></tbody></table>
+<h2>Dependencias y sus razones</h2><ul><li><code>anomalies</code> → <code>summary</code> <small>result_reference</small></li><li><code>generate</code> → <code>anomalies</code> <small>result_reference</small></li><li><code>generate</code> → <code>statistics</code> <small>result_reference</small></li><li><code>statistics</code> → <code>summary</code> <small>result_reference</small></li></ul><h2>Estado final</h2><table><tr><th>Tarea</th><th>Estado</th><th>Error</th></tr><tr><td>generate</td><td>succeeded</td><td></td></tr><tr><td>statistics</td><td>succeeded</td><td></td></tr><tr><td>anomalies</td><td>succeeded</td><td></td></tr><tr><td>summary</td><td>succeeded</td><td></td></tr></table><h2>Resultados</h2><details><summary>Ver resultados completos</summary><pre>{
+  &quot;generate&quot;: {
+    &quot;values&quot;: [
+      48.209,
+      53.58,
+      48.417,
+      47.795,
+      43.49,
+      48.507,
+      57.783,
+      52.969,
+      57.258,
+      51.742,
+      52.763,
+      51.297,
+      38.338,
+      55.987,
+      53.545,
+      53.492,
+      38.16,
+      37.793,
+      43.773,
+      46.723,
+      52.138,
+      49.679,
+      53.647,
+      45.504,
+      52.161,
+      52.759,
+      45.372,
+      62.023,
+      53.896,
+      58.379,
+      45.658,
+      44.823,
+      47.592,
+      49.255,
+      54.425,
+      51.739,
+      46.869,
+      43.302,
+      46.356,
+      58.546,
+      44.344,
+      51.713,
+      52.986,
+      39.572,
+      50.339,
+      59.144,
+      35.899,
+      47.749,
+      49.257,
+      44.279,
+      53.482,
+      49.564,
+      39.747,
+      55.795,
+      54.685,
+      56.621,
+      60.084,
+      52.536,
+      50.835,
+      40.906,
+      54.308,
+      45.718,
+      46.831,
+      41.146,
+      43.227,
+      46.282,
+      59.022,
+      35.777,
+      39.796,
+      51.675,
+      60.103,
+      54.049,
+      36.7,
+      32.372,
+      52.502,
+      44.846,
+      42.161,
+      56.842,
+      57.713,
+      51.101,
+      120.0,
+      130.0
+    ],
+    &quot;source&quot;: &quot;synthetic_seeded&quot;
+  },
+  &quot;statistics&quot;: {
+    &quot;count&quot;: 82,
+    &quot;mean&quot;: 51.06648780487805,
+    &quot;median&quot;: 50.587,
+    &quot;stddev&quot;: 13.401515273121355,
+    &quot;min&quot;: 32.372,
+    &quot;max&quot;: 130.0
+  },
+  &quot;anomalies&quot;: {
+    &quot;method&quot;: &quot;population_z_score&quot;,
+    &quot;threshold&quot;: 3,
+    &quot;outliers&quot;: [
+      {
+        &quot;index&quot;: 80,
+        &quot;value&quot;: 120.0,
+        &quot;z&quot;: 5.143710303668266
+      },
+      {
+        &quot;index&quot;: 81,
+        &quot;value&quot;: 130.0,
+        &quot;z&quot;: 5.889894581804069
+      }
+    ]
+  },
+  &quot;summary&quot;: {
+    &quot;markdown&quot;: &quot;# Análisis de datos\n\nSe analizaron 82 observaciones. La media es 51.066 y la desviación estándar poblacional es 13.402.\n\nSe detectaron 2 anomalías con el método de puntuación z.\n\nEl conjunto es sintético y reproducible; los resultados describen exclusivamente este ejemplo.\n&quot;,
+    &quot;statistics&quot;: {
+      &quot;count&quot;: 82,
+      &quot;mean&quot;: 51.06648780487805,
+      &quot;median&quot;: 50.587,
+      &quot;stddev&quot;: 13.401515273121355,
+      &quot;min&quot;: 32.372,
+      &quot;max&quot;: 130.0
+    },
+    &quot;anomalies&quot;: {
+      &quot;method&quot;: &quot;population_z_score&quot;,
+      &quot;threshold&quot;: 3,
+      &quot;outliers&quot;: [
+        {
+          &quot;index&quot;: 80,
+          &quot;value&quot;: 120.0,
+          &quot;z&quot;: 5.143710303668266
+        },
+        {
+          &quot;index&quot;: 81,
+          &quot;value&quot;: 130.0,
+          &quot;z&quot;: 5.889894581804069
+        }
+      ]
+    }
+  }
+}</pre></details></body></html>

@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "tolerance": 1e-9,
+  "cases": [
+    {"id": "uniform", "values": [1,2,3,4,5], "statistics": {"count":5,"mean":3,"median":3,"stddev":1.4142135623730951,"min":1,"max":5}, "outlier_indices": [], "histogram_counts": [1,1,1,1,1]},
+    {"id": "constant", "values": [7,7,7,7], "statistics": {"count":4,"mean":7,"median":7,"stddev":0,"min":7,"max":7}, "outlier_indices": [], "histogram_counts": [4,0,0,0,0]},
+    {"id": "outlier", "values": [10,20,30,40,100], "statistics": {"count":5,"mean":40,"median":30,"stddev":31.622776601683793,"min":10,"max":100}, "outlier_indices": [4], "histogram_counts": [2,2,0,0,1]}
+  ],
+  "reference_method": "Valores fijados por cálculo directo: media sum(x)/n y desviación poblacional sqrt(sum((x-media)^2)/n). Anomalías con |z|>1.5 y cinco bins de ancho (max-min)/5; último extremo incluido. No se usa la salida del baseline como única verdad de referencia."
+}

@@ -1,0 +1,41 @@
+test_artifact_and_semantic_mentions (test_analysis.AnalysisTests.test_artifact_and_semantic_mentions) ... ok
+test_history_updates_only_on_success_and_explicit_weight_wins (test_analysis.AnalysisTests.test_history_updates_only_on_success_and_explicit_weight_wins) ... ok
+test_initial_artifact_needs_no_producer (test_analysis.AnalysisTests.test_initial_artifact_needs_no_producer) ... ok
+test_missing_and_duplicate_artifacts_rejected (test_analysis.AnalysisTests.test_missing_and_duplicate_artifacts_rejected) ... ok
+test_read_read_can_run_together_write_is_serialized (test_analysis.AnalysisTests.test_read_read_can_run_together_write_is_serialized) ... ok
+test_reference_adds_dependency_without_listing_it (test_analysis.AnalysisTests.test_reference_adds_dependency_without_listing_it) ... ok
+test_resource_order_respects_existing_reverse_dependency (test_analysis.AnalysisTests.test_resource_order_respects_existing_reverse_dependency) ... ok
+test_incomplete_remote_response_is_rejected (test_analysis.JevTests.test_incomplete_remote_response_is_rejected) ... ok
+test_missing_credentials_has_clear_error (test_analysis.JevTests.test_missing_credentials_has_clear_error) ... ok
+test_native_http_contract (test_analysis.JevTests.test_native_http_contract) ... ok
+test_remote_cycle_never_overrides_explicit_dependency (test_analysis.JevTests.test_remote_cycle_never_overrides_explicit_dependency) ... ok
+test_remote_decisions_add_edges_and_costs (test_analysis.JevTests.test_remote_decisions_add_edges_and_costs) ... ok
+test_uncertain_dependency_blocks_execution (test_analysis.JevTests.test_uncertain_dependency_blocks_execution) ... ok
+test_failure_skips_descendants_and_preserves_independent_branch (test_execution.ExecutionTests.test_failure_skips_descendants_and_preserves_independent_branch) ... ok
+test_fifo_is_a_distinct_baseline (test_execution.ExecutionTests.test_fifo_is_a_distinct_baseline) ... ok
+test_heaviest_remaining_branch_starts_first (test_execution.ExecutionTests.test_heaviest_remaining_branch_starts_first) ... ok
+test_independent_tasks_overlap_on_distinct_workers (test_execution.ExecutionTests.test_independent_tasks_overlap_on_distinct_workers) ... ok
+test_real_mcp_stdio_roundtrip (test_execution.ExecutionTests.test_real_mcp_stdio_roundtrip) ... ok
+test_real_mcp_timeout_closes_session (test_execution.ExecutionTests.test_real_mcp_timeout_closes_session) ... ok
+test_report_escapes_external_text (test_execution.ExecutionTests.test_report_escapes_external_text) ... ok
+test_results_flow_and_dependencies_are_respected (test_execution.ExecutionTests.test_results_flow_and_dependencies_are_respected) ... ok
+test_timeout_terminates_task (test_execution.ExecutionTests.test_timeout_terminates_task) ... ok
+test_unresolvable_reference_fails_only_affected_branch (test_execution.ExecutionTests.test_unresolvable_reference_fails_only_affected_branch) ... ok
+test_retry_releases_successor_only_after_success (test_execution.RetryTests.test_retry_releases_successor_only_after_success) ... ok
+test_bottom_level_and_duplicate_edges (test_model_graph.GraphTests.test_bottom_level_and_duplicate_edges) ... ok
+test_cycle_rejected (test_model_graph.GraphTests.test_cycle_rejected) ... ok
+test_topological_order_with_reversed_input (test_model_graph.GraphTests.test_topological_order_with_reversed_input) ... ok
+test_bad_reference_does_not_execute_code (test_model_graph.ModelTests.test_bad_reference_does_not_execute_code) ... ok
+test_nested_references_preserve_types (test_model_graph.ModelTests.test_nested_references_preserve_types) ... ok
+test_rejects_duplicate_ids (test_model_graph.ModelTests.test_rejects_duplicate_ids) ... ok
+test_rejects_empty_plan (test_model_graph.ModelTests.test_rejects_empty_plan) ... ok
+test_rejects_missing_dependency_and_self_dependency (test_model_graph.ModelTests.test_rejects_missing_dependency_and_self_dependency) ... ok
+test_rejects_nonfinite_or_boolean_weights (test_model_graph.ModelTests.test_rejects_nonfinite_or_boolean_weights) ... ok
+test_rejects_unknown_fields (test_model_graph.ModelTests.test_rejects_unknown_fields) ... ok
+test_rejects_unknown_mcp_server (test_model_graph.ModelTests.test_rejects_unknown_mcp_server) ... ok
+test_retry_requires_idempotence (test_model_graph.ModelTests.test_retry_requires_idempotence) ... ok
+
+----------------------------------------------------------------------
+Ran 36 tests in 7.762s
+
+OK

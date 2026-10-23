@@ -1,0 +1,153 @@
+\section{Parte II Reporte del proyecto}
+\subsection{Panorama y arquitectura}
+El caso de uso es un agente que obtiene datos, los limpia, calcula
+estadísticas, detecta anomalías, produce un histograma y compone un
+resumen. Se busca menor latencia conservando todos los insumos y la
+respuesta de referencia. El límite inicial es $p$; se observa CPU
+y RSS individual, sin imponer aún cuotas de memoria.
+\begin{center}\small
+Plan JSON $\rightarrow$ análisis $\rightarrow$ DAG ponderado\\
+$\rightarrow$ rank 0 $\rightleftarrows$ workers MPI\\
+$\rightarrow$ herramientas MCP $\rightarrow$ resultados e historial.
+\end{center}
+Rank 0 resuelve referencias y recibe con \texttt{ANY\_SOURCE}.
+Cada worker ejecuta un proceso aislado. El cliente MCP inicializa
+la sesión stdio, invoca la herramienta, valida su estado y retorna
+resultados estructurados. Los workers no necesitan el grafo completo.
+
+\subsection{M1 Algoritmo central implementado}
+Se implementaron ambas políticas, conflictos, reintentos, timeout,
+exportación DOT y reportes JSON/HTML. SQLite aprende
+$\hat w_{\rm nueva}=0.3w_{\rm observado}+0.7\hat w_{\rm anterior}$.
+Los pesos explícitos prevalecen sobre historial, intervalo Jev y
+heurística. Solo se aprende de éxitos y no se cambian prioridades
+a mitad del ensayo.
+
+El plan original de siete tareas completó MPI con rank 0 y cuatro
+workers. Cuatro herramientas MCP se ejecutaron con rank 0 y tres workers,
+conservando el resultado local. Se probaron Python 3.12.4, mpi4py 4.1.2,
+MPICH 5.0.2 y MCP SDK 1.30.0. Se verificó stdio y varios procesos
+en una computadora; no se afirma validación multinodo.
+
+\begin{table}[!t]
+\caption{Evaluación local. Medianas de tres repeticiones, en segundos.
+FIFO y crítica usan dos workers; secuencial, uno.}
+\label{tab:local}
+\centering\small
+\begin{tabular}{lrrrr}
+\toprule
+Carga & Tareas & Sec. & FIFO & Crítica\\
+\midrule
+Consulta uniforme & 5 & \UniformSeq & \UniformFifo & \UniformCrit\\
+Consulta constante & 5 & \ConstantSeq & \ConstantFifo & \ConstantCrit\\
+Consulta con extremo & 5 & \OutlierSeq & \OutlierFifo & \OutlierCrit\\
+Rama crítica & 4 & \PrioritySeq & \PriorityFifo & \PriorityCrit\\
+Abanico pequeño & 9 & \ScaleSmallSeq & \ScaleSmallFifo & \ScaleSmallCrit\\
+Abanico mayor & 25 & \ScaleLargeSeq & \ScaleLargeFifo & \ScaleLargeCrit\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La carga con rama crítica ahorró \PrioritySaving{}\% de tiempo frente
+al secuencial y \PriorityFifoSaving{}\% frente a FIFO.
+Las consultas pequeñas no muestran dominio consistente sobre FIFO
+(Tabla~\ref{tab:local}). La carga de 25 tareas alcanzó speedup
+\ScaleSpeedup{} y eficiencia \ScaleEfficiency{}\% con dos workers.
+Su CPU acumulado de tareas fue \ScaleCpuSeq{} s secuencial frente a
+\ScaleCpuCrit{} s con prioridad crítica: reducir latencia no demuestra
+ahorrar trabajo computacional ni energía.
+
+\subsection{M2 Robustez y evaluación determinista implementadas}
+Se fijaron tres consultas en \texttt{experiments/golden.json}:
+$[1,2,3,4,5]$, $[7,7,7,7]$ y $[10,20,30,40,100]$.
+Sus referencias se calcularon directamente: estadística poblacional,
+anomalías con $|z|>1.5$ y cinco bins incluyendo el extremo superior.
+La tercera tiene media 40, mediana 30, desviación $\sqrt{1000}$,
+extremo en índice 4 y frecuencias $[2,2,0,0,1]$.
+
+Los 27 ensayos de consultas alcanzaron exactitud, completitud y corrección
+de precedencia 1.00, con hashes iguales entre métodos y repeticiones.
+La carga de prioridad y dos abanicos completan 54 ejecuciones, manteniendo
+valores, herramientas, pesos e intérprete, sin historial. Se registraron
+mediana, mínimo, máximo, CPU, RSS y hashes; los tiempos no son deterministas.
+
+El proveedor fue heurístico, sin LLM ni muestreo: tokens remotos
+y costo de API fueron cero; energía y costo del hardware no se midieron.
+El mayor RSS individual fue \MaxRss{} MiB; excluye memoria agregada
+y servidores MCP hijos. Hay \TestCount{} pruebas automatizadas de
+contrato, análisis, ejecución, FIFO y MCP, incluyendo cancelación.
+El sistema operativo puede cambiar recepción y asignación física:
+se exige igualdad de resultados para herramientas puras, no cronogramas
+idénticos.
+
+Jev se probó con respuestas controladas, sin consulta autenticada.
+La evaluación pendiente fijará un ID inmutable de modelo y archivará
+solicitudes y respuestas, repitiendo diez análisis por plan contra
+aristas etiquetadas. No se inventarán parámetros de temperatura o semilla
+que la API no expone. La variabilidad del modelo se separará de la
+del scheduler y de las herramientas.
+
+\subsection{M3 Calidad y asignación de recursos planeadas}
+La próxima versión minimizará $C_{\max}$ y, secundariamente, CPU y
+costo remoto, con exactitud y completitud 1.00 en consultas deterministas,
+cero violaciones de precedencia y acuerdo de hashes 1.00.
+Para inferencia se propone precisión y recall de aristas al menos 0.99
+en planes revisados. Son umbrales de aceptación, no resultados medidos.
+Una relación incierta detendrá el plan o exigirá una dependencia
+explícita validada.
+
+Se seleccionará el menor $p$ que cumpla latencia y presupuesto de
+memoria. Los ensayos MPI iniciales muestran por qué: las medianas
+de tres repeticiones fueron \MpiTwo{} s con dos workers y
+\MpiFour{} s con cuatro, frente a \MpiSeq{} s secuenciales.
+Hubo dispersión y carga de fondo no aislada. Son mediciones exploratorias,
+no evidencia de escalamiento monotónico; el benchmark final aislará
+estos factores.
+
+\subsection{M4 Benchmark y sistema final planeados}
+Se conservará coordinador--workers, con admisión por memoria,
+artefactos por referencia y sesiones MCP persistentes. Se comparará
+secuencial, FIFO, prioridad crítica y una variante de HEFT con
+comunicación y heterogeneidad. Kahn, listas y camino crítico son
+las bases clásicas elegidas; su correspondencia exacta con el temario
+del curso debe confirmarse.
+
+La matriz prevista contiene 8, 32, 128 y 512 tareas, distinta anchura
+y densidad, varios tamaños de entrada y $p\in\{1,2,4,8\}$.
+Habrá calentamiento, diez o más repeticiones, orden aleatorizado,
+máquina sin carga ajena y versiones congeladas. Se reportarán mediana,
+percentil 95 e intervalo de confianza del speedup, verificando referencias
+y hashes por ensayo. Se distinguirán pruebas multinodo de las locales.
+
+\begin{table}[!t]
+\caption{Métricas del benchmark final.}
+\centering\small
+\begin{tabular}{p{.23\columnwidth}p{.66\columnwidth}}
+\toprule
+Dimensión & Medición\\
+\midrule
+Eficiencia & Tiempo, CPU, tokens, RSS agregado, bytes y costo con tarifa fechada\\
+Calidad & Exactitud, corrección del DAG y completitud\\
+Consistencia & Acuerdo de hashes y decisiones repetidas\\
+Determinismo & Configuración fija; separar resultados, orden y variación Jev\\
+Escalabilidad & Tiempo y eficiencia por carga y workers\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Se aceptará ahorro solo si se mantienen los umbrales y mejora la
+métrica objetivo. El costo de API sumará tokens por tarifa real,
+sin confundirlo con energía ni CPU. La memoria total exigirá muestrear
+ranks, procesos de tarea y servidores, complementando el RSS individual.
+
+\subsection{Repositorio y hoja de ruta}
+Se entregan código, planes, esquema, servidor MCP, pruebas, referencias
+fijas, evaluación, resultados y fuentes del informe. Las versiones están
+congeladas. El contenedor no se presenta como verificado.
+
+M1 está implementado y verificado en MPI. M2 tiene evidencia determinista
+y robustez; la variabilidad Jev está pendiente. M3 requiere costos
+condicionados, cuotas y selección de $p$. M4 requiere comparadores
+heterogéneos, aislamiento y validación multinodo. El orden será cerrar
+aristas de referencia y fijar versión Jev, implementar admisión y
+memoria total, comparar cargas ampliadas y reproducir en varios nodos.

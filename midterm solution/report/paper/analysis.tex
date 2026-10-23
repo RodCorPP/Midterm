@@ -1,0 +1,79 @@
+\subsection{Q3 Complejidad garantías y límites}
+Con $m=|E|$, las adyacencias ocupan $O(n+m)$. Kahn con heap,
+prioridades y despacho cuestan $O((n+m)\log n)$ sin fallos.
+Calcular $b$ después de ordenar cuesta $O(n+m)$; los reintentos agregan
+trabajo acotado. El análisis completo no es lineal: comparar pares para
+conflictos cuesta hasta $O(n^2r)$ con $r$ recursos por tarea, además
+de procesar descripciones. Jev formula $O(n^2)$ preguntas, almacenadas
+antes de dividirse en lotes; su espacio también es cuadrático.
+
+Con $B$ bytes de resultados retenidos y $b_{\max}$ como mayor mensaje
+activo, el estado de ejecución ocupa aproximadamente
+$O(n+m+B+p b_{\max})$, más memoria de herramientas. Rank 0 retiene
+resultados y puede ser cuello de botella. Sin reintentos hay $n$ envíos
+de trabajo y $n$ respuestas, más control. Un modelo es
+\begin{equation}
+T_{\rm comm}\approx 2n\alpha+\beta D,
+\end{equation}
+donde $\alpha$ es latencia, $\beta$ tiempo por byte y $D$ los bytes
+transmitidos, incluidas copias de insumos. Abrir una sesión MCP por tarea
+añade negociación \cite{mcp,mpi}.
+
+Con procesadores idénticos, herramientas exitosas y comunicación nula,
+una lista que no deja workers ociosos cuando hay trabajo listo satisface
+la cota clásica \cite{graham}:
+\begin{equation}
+C_{\rm LS}\leq \frac Wp+\left(1-\frac1p\right)L
+\leq \left(2-\frac1p\right)C^*.
+\end{equation}
+Aquí $W=\sum_vw_v$, $L$ es el camino más largo en duraciones reales
+y $C^*$ el óptimo. La justificación sigue hacia atrás una cadena que
+explica la última finalización: fuera de sus intervalos todos los
+procesadores están ocupados y la cadena mide a lo sumo $L$.
+Esto da la primera desigualdad; $W/p,L\leq C^*$ dan la segunda.
+La garantía no incorpora costos MPI, heterogeneidad, reintentos ni
+aristas equivocadas. Los pesos predichos fijan prioridades; $\max b(v)$
+no certifica un límite inferior del tiempo real. Se reportan
+speedup $S_p=T_1/T_p$ y eficiencia $\eta_p=S_p/p$.
+
+\subsection{Q4 Robustez escalabilidad y calidad}
+Se comparan dos alternativas: secuencial topológico con un worker,
+baseline sin optimización, y FIFO entre tareas listas. FIFO y prioridad
+crítica comparten transporte y dos workers en la evaluación controlada.
+No hay superioridad universal: con costos errados, FIFO puede empatar
+o superar a la prioridad crítica.
+
+Se rechazan IDs repetidos, referencias desconocidas, ciclos, artefactos
+sin productor y pesos inválidos. El aislamiento permite timeout;
+MCP añade cancelación y hasta cinco segundos para cerrar la sesión.
+Los reintentos requieren idempotencia. Un fallo omite descendientes y
+conserva ramas independientes. La admisión por memoria sigue planeada;
+no se afirma protección frente a todo agotamiento de recursos.
+
+La exactitud compara diez comprobaciones numéricas y estructurales
+por consulta contra referencias independientes del baseline, con
+tolerancia $10^{-9}$. La completitud cuenta nueve campos requeridos.
+La corrección de precedencia exige que cada padre termine antes del
+primer intento del hijo. La consistencia compara SHA-256 del JSON
+canónico de resultados, excluyendo tiempos y recursos. Se evalúan
+herramientas y composición deterministas, no la calidad semántica
+de prosa libre de un LLM.
+
+\subsection{Q5 Limitaciones y próximos pasos}
+Las principales limitaciones son pesos poco sensibles al tamaño de
+entrada, inferencia cuadrática y datos centralizados. Se proponen:
+
+\textit{Costos condicionados y ubicación.} Predecir duración por bytes,
+herramienta y tipo de nodo; incorporar comunicación y finalización
+temprana, como motiva HEFT \cite{heft}. Medir error de predicción,
+makespan y bytes frente a la política actual en nodos heterogéneos.
+
+\textit{Inferencia selectiva verificable.} Indexar productores y recursos,
+consultar solo pares ambiguos y procesar preguntas en flujo. Medir
+precisión y recall de aristas contra DAGs revisados, tokens y latencia.
+Una predicción plausible no demuestra independencia.
+
+\textit{Admisión y recuperación.} Limitar concurrencia según memoria,
+transmitir referencias a datos grandes y guardar checkpoints. Evaluar
+RSS agregado, tiempo de recuperación y duplicados con fallos inyectados.
+Estas mejoras no se presentan como implementadas.

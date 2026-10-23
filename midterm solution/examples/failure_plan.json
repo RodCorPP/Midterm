@@ -1,0 +1,8 @@
+{
+  "name": "Fallo controlado sin bloquear ramas independientes",
+  "tasks": [
+    {"id": "failure", "tool": "demo.fail", "arguments": {"message": "Error intencional"}, "retries": 1, "idempotent": true},
+    {"id": "blocked", "tool": "demo.echo", "depends_on": ["failure"], "arguments": {"value": "No debe ejecutarse"}},
+    {"id": "independent", "tool": "demo.echo", "arguments": {"value": "Esta rama sí termina"}}
+  ]
+}

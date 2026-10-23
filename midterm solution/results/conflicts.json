@@ -1,0 +1,142 @@
+{
+  "plan": "Conflictos de acceso a un recurso compartido",
+  "backend": "local",
+  "workers": 4,
+  "ok": true,
+  "makespan_seconds": 0.927318458998343,
+  "worker_busy_seconds": 1.237024874004419,
+  "utilization": 0.33349516069717033,
+  "states": {
+    "read_a": "succeeded",
+    "read_b": "succeeded",
+    "write": "succeeded",
+    "read_after": "succeeded"
+  },
+  "attempts": {
+    "read_a": 1,
+    "read_b": 1,
+    "write": 1,
+    "read_after": 1
+  },
+  "errors": {},
+  "results": {
+    "read_b": "lectura B",
+    "read_a": "lectura A",
+    "write": "escritura simulada",
+    "read_after": "lectura posterior"
+  },
+  "events": [
+    {
+      "task": "read_b",
+      "worker": 2,
+      "attempt": 1,
+      "start_seconds": 0.00023858400527387857,
+      "end_seconds": 0.311216375004733,
+      "duration_seconds": 0.3104944160004379,
+      "status": "succeeded",
+      "predicted_seconds": 0.25
+    },
+    {
+      "task": "read_a",
+      "worker": 1,
+      "attempt": 1,
+      "start_seconds": 2.183399919886142e-05,
+      "end_seconds": 0.3112527500052238,
+      "duration_seconds": 0.31096462499408517,
+      "status": "succeeded",
+      "predicted_seconds": 0.25
+    },
+    {
+      "task": "write",
+      "worker": 1,
+      "attempt": 1,
+      "start_seconds": 0.31127175000438,
+      "end_seconds": 0.6184667920024367,
+      "duration_seconds": 0.30701058299746364,
+      "status": "succeeded",
+      "predicted_seconds": 0.25
+    },
+    {
+      "task": "read_after",
+      "worker": 1,
+      "attempt": 1,
+      "start_seconds": 0.6184892089950154,
+      "end_seconds": 0.927305792007246,
+      "duration_seconds": 0.3085552500124322,
+      "status": "succeeded",
+      "predicted_seconds": 0.25
+    }
+  ],
+  "analysis": {
+    "provider": "heuristic",
+    "weight_sources": {
+      "read_a": "demo_delay_plus_overhead",
+      "read_b": "demo_delay_plus_overhead",
+      "write": "demo_delay_plus_overhead",
+      "read_after": "demo_delay_plus_overhead"
+    },
+    "jev_decisions": [],
+    "notes": [
+      "Heuristic es una línea base determinista; no invoca al modelo Jev."
+    ]
+  },
+  "dag": {
+    "nodes": [
+      {
+        "id": "read_a",
+        "tool": "demo.echo",
+        "weight_seconds": 0.25,
+        "bottom_level": 0.75
+      },
+      {
+        "id": "read_b",
+        "tool": "demo.echo",
+        "weight_seconds": 0.25,
+        "bottom_level": 0.75
+      },
+      {
+        "id": "write",
+        "tool": "demo.echo",
+        "weight_seconds": 0.25,
+        "bottom_level": 0.5
+      },
+      {
+        "id": "read_after",
+        "tool": "demo.echo",
+        "weight_seconds": 0.25,
+        "bottom_level": 0.25
+      }
+    ],
+    "edges": [
+      {
+        "from": "read_a",
+        "to": "write",
+        "reasons": [
+          "resource_conflict:dataset"
+        ]
+      },
+      {
+        "from": "read_b",
+        "to": "write",
+        "reasons": [
+          "resource_conflict:dataset"
+        ]
+      },
+      {
+        "from": "write",
+        "to": "read_after",
+        "reasons": [
+          "resource_conflict:dataset"
+        ]
+      }
+    ],
+    "topological_order": [
+      "read_a",
+      "read_b",
+      "write",
+      "read_after"
+    ],
+    "critical_path_seconds": 0.75,
+    "total_work_seconds": 1.0
+  }
+}

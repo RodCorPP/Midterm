@@ -1,0 +1,140 @@
+{
+  "plan": "Análisis paralelo de datos para un agente MCP",
+  "analysis": {
+    "provider": "heuristic",
+    "weight_sources": {
+      "generate": "explicit",
+      "context": "explicit",
+      "clean": "explicit",
+      "statistics": "explicit",
+      "anomalies": "explicit",
+      "histogram": "explicit",
+      "summary": "explicit"
+    },
+    "jev_decisions": [],
+    "notes": [
+      "Heuristic es una línea base determinista; no invoca al modelo Jev."
+    ]
+  },
+  "dag": {
+    "nodes": [
+      {
+        "id": "generate",
+        "tool": "data.generate",
+        "weight_seconds": 0.23,
+        "bottom_level": 1.46
+      },
+      {
+        "id": "context",
+        "tool": "demo.echo",
+        "weight_seconds": 0.5,
+        "bottom_level": 0.67
+      },
+      {
+        "id": "clean",
+        "tool": "data.clean",
+        "weight_seconds": 0.21,
+        "bottom_level": 1.23
+      },
+      {
+        "id": "statistics",
+        "tool": "stats.describe",
+        "weight_seconds": 0.7,
+        "bottom_level": 0.87
+      },
+      {
+        "id": "anomalies",
+        "tool": "stats.anomalies",
+        "weight_seconds": 0.85,
+        "bottom_level": 1.02
+      },
+      {
+        "id": "histogram",
+        "tool": "chart.histogram",
+        "weight_seconds": 0.6,
+        "bottom_level": 0.77
+      },
+      {
+        "id": "summary",
+        "tool": "report.compose",
+        "weight_seconds": 0.17,
+        "bottom_level": 0.17
+      }
+    ],
+    "edges": [
+      {
+        "from": "anomalies",
+        "to": "summary",
+        "reasons": [
+          "result_reference",
+          "description_mentions:anomaly_result"
+        ]
+      },
+      {
+        "from": "clean",
+        "to": "anomalies",
+        "reasons": [
+          "result_reference",
+          "description_mentions:clean_data"
+        ]
+      },
+      {
+        "from": "clean",
+        "to": "histogram",
+        "reasons": [
+          "result_reference",
+          "description_mentions:clean_data"
+        ]
+      },
+      {
+        "from": "clean",
+        "to": "statistics",
+        "reasons": [
+          "result_reference",
+          "description_mentions:clean_data"
+        ]
+      },
+      {
+        "from": "context",
+        "to": "summary",
+        "reasons": [
+          "result_reference"
+        ]
+      },
+      {
+        "from": "generate",
+        "to": "clean",
+        "reasons": [
+          "result_reference",
+          "description_mentions:raw_data"
+        ]
+      },
+      {
+        "from": "histogram",
+        "to": "summary",
+        "reasons": [
+          "result_reference"
+        ]
+      },
+      {
+        "from": "statistics",
+        "to": "summary",
+        "reasons": [
+          "result_reference",
+          "description_mentions:descriptive_stats"
+        ]
+      }
+    ],
+    "topological_order": [
+      "generate",
+      "context",
+      "clean",
+      "statistics",
+      "anomalies",
+      "histogram",
+      "summary"
+    ],
+    "critical_path_seconds": 1.46,
+    "total_work_seconds": 3.26
+  }
+}

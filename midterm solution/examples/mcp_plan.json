@@ -1,0 +1,10 @@
+{
+  "name": "Herramientas MCP reales sobre stdio",
+  "servers": {"analytics": {"command": "@python", "args": ["-m", "midterm.mcp_server"]}},
+  "tasks": [
+    {"id": "generate", "server": "analytics", "tool": "generate", "description": "Generar datos", "arguments": {"count": 80, "seed": 7}, "estimated_seconds": 0.7},
+    {"id": "statistics", "server": "analytics", "tool": "describe", "description": "Describir los datos generados", "arguments": {"values": {"$ref": "generate.result.values"}, "delay_seconds": 0.2}, "estimated_seconds": 0.9},
+    {"id": "anomalies", "server": "analytics", "tool": "anomalies", "description": "Detectar anomalías en los datos generados", "arguments": {"values": {"$ref": "generate.result.values"}, "delay_seconds": 0.3}, "estimated_seconds": 1.0},
+    {"id": "summary", "server": "analytics", "tool": "compose", "arguments": {"statistics": {"$ref": "statistics.result"}, "anomalies": {"$ref": "anomalies.result"}}, "estimated_seconds": 0.7}
+  ]
+}

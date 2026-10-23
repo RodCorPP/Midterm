@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/midterm/plan.schema.json",
+  "title": "Plan del agente MCP",
+  "type": "object",
+  "required": [
+    "name",
+    "tasks"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "initial_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "servers": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "command"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "command": {
+            "type": "string",
+            "minLength": 1
+          },
+          "args": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "env": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "cwd": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "tool"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+          },
+          "tool": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string"
+          },
+          "arguments": {
+            "type": "object"
+          },
+          "depends_on": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "consumes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "produces": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "resources": {
+            "type": "object",
+            "propertyNames": {
+              "minLength": 1
+            },
+            "additionalProperties": {
+              "enum": [
+                "read",
+                "write"
+              ]
+            }
+          },
+          "server": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "estimated_seconds": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "exclusiveMinimum": 0
+          },
+          "priority": {
+            "type": "integer"
+          },
+          "timeout_seconds": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "retries": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10
+          },
+          "idempotent": {
+            "type": "boolean"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "required": [
+                "retries"
+              ],
+              "properties": {
+                "retries": {
+                  "minimum": 1
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "idempotent"
+              ],
+              "properties": {
+                "idempotent": {
+                  "const": true
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

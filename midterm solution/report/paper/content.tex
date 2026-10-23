@@ -1,0 +1,97 @@
+\begin{abstract}
+Se implementó un planificador de tareas MCP que construye un DAG
+ponderado y distribuye trabajo con MPI por prioridad de camino restante.
+La corrección del scheduler se distingue de la incertidumbre del grafo
+inferido. Se comparan ejecución secuencial, FIFO y prioridad crítica.
+En 54 ejecuciones controladas se conservaron los resultados; las 27
+verificaciones de consultas alcanzaron exactitud, completitud y
+consistencia de 1.00. La carga sensible a prioridades redujo el tiempo
+\PrioritySaving{}\% frente al baseline secuencial. También se verificaron
+MPI y MCP reales. La evaluación autenticada de Jev y el despliegue
+multinodo siguen pendientes.
+\end{abstract}
+
+\section{Parte I Análisis algorítmico}
+\subsection{Q1 Definición motivación y supuestos}
+Los agentes pueden secuenciar herramientas independientes. Se busca
+reducir su latencia conservando resultados, precedencias e insumos.
+
+La entrada es un JSON con $n$ tareas, herramientas, argumentos,
+referencias a resultados, dependencias explícitas, artefactos producidos
+y consumidos, recursos y costos positivos. El análisis obtiene un DAG
+$G=(V,E)$ con pesos $\hat w_v$ y razones auditables para cada arista.
+Dados $p$ workers, se producen asignación $a(v)$, inicios $s_v$,
+resultados y estados terminales. Con duraciones reales $w_v$, se minimiza
+\begin{equation}
+C_{\max}=\max_{v\in V}(s_v+w_v),
+\end{equation}
+sujeto a $s_v\geq0$, $s_v\geq s_u+w_u$ para $(u,v)\in E$, una tarea
+por worker y exclusión de accesos incompatibles a recursos.
+Lectura--escritura y escritura--escritura agregan precedencias;
+dos lectores pueden coincidir.
+
+El modelo es $P\mid prec\mid C_{\max}$: procesadores idénticos y tareas
+indivisibles, sin expropiación ni migración. Rank 0 coordina y no cuenta
+como worker. La implementación añade comunicación, serialización y
+procesos aislados. Se asumen herramientas de confianza, datos
+serializables y metadatos que describan insumos y efectos compartidos.
+Ante fallos se exigen resultados parciales explícitos.
+
+El problema es NP-difícil: con $E=\varnothing$, $p=2$ y pesos enteros,
+decidir un makespan igual a la mitad del trabajo contiene PARTITION.
+La heurística de listas permite liberación dinámica sin buscar el
+óptimo combinatorio. Jev aporta decisiones estructuradas \cite{jev};
+su probabilidad no demuestra que el DAG contenga todas las
+dependencias reales.
+
+\subsection{Q2 Algoritmo central y corrección}
+Se combinan Kahn \cite{kahn}, camino restante y despacho al siguiente
+worker libre. Se agregan aristas por \texttt{depends\_on}, referencias,
+artefactos y conflictos. La línea base heurística reconoce menciones
+exactas de artefactos en descripciones. Jev consulta precedencias entre
+pares y costos por intervalo, sin eliminar relaciones declaradas.
+Probabilidad seleccionada menor que 0.75 bloquea una dependencia;
+todo ciclo se rechaza antes de ejecutar.
+
+En orden topológico inverso se calcula
+\begin{equation}
+b(v)=\hat w_v+\max_{x:(v,x)\in E}b(x),\quad \max\varnothing=0.
+\end{equation}
+Se elige mayor $b(v)$ y se desempata por prioridad explícita y posición
+en el JSON. FIFO usa orden de ingreso. Los pesos se congelan por ejecución.
+
+\begin{figure}[!t]
+\centering
+\begin{minipage}{0.95\columnwidth}\small
+\textbf{Algoritmo 1 Planificación dinámica}\\
+1. Validar DAG; calcular $b$ e indegrees.\\
+2. Encolar nodos con indegree cero.\\
+3. Mientras haya tareas listas o activas:\\
+\hspace*{.7em} a. Con un worker libre, extraer la mejor tarea,\\
+\hspace*{1.6em} resolver argumentos y enviar trabajo.\\
+\hspace*{.7em} b. Recibir la siguiente respuesta disponible.\\
+\hspace*{.7em} c. Si tuvo éxito, guardar resultado y reducir\\
+\hspace*{1.6em} indegrees; encolar nuevos hijos listos.\\
+\hspace*{.7em} d. Si falla, reintentar solo si es idempotente\\
+\hspace*{1.6em} y queda presupuesto; si no, omitir descendientes.\\
+4. Detener workers; guardar reporte e historial.
+\end{minipage}
+\caption{Liberación por eventos, sin barreras entre niveles completos.}
+\end{figure}
+
+Invariantes: I1, el indegree residual cuenta padres sin éxito; I2,
+solo se despachan tareas listas y cada worker tiene un intento activo;
+I3, las referencias usan resultados exitosos; I4, un fallo definitivo
+impide despachar descendientes. I1 vale inicialmente por construcción.
+Cada éxito reduce una vez sus aristas; encolar al llegar a cero preserva
+I1 e I2. Resolver referencias después preserva I3. Marcar descendientes
+antes del siguiente despacho preserva I4. Por inducción sobre eventos
+se respeta el DAG aceptado y sus exclusiones de recursos.
+
+Todo subgrafo pendiente de un DAG finito tiene un nodo mínimo.
+Si las tareas terminan o alcanzan timeout, los reintentos son finitos
+y el transporte opera, se alcanzan estados terminales. La pérdida de
+un rank aborta el job: no se promete continuidad.
+La contribución integra dependencias auditables y ejecución MCP sobre
+MPI. Listas y camino crítico son técnicas conocidas; no se propone
+una nueva garantía de optimalidad.

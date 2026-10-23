@@ -1,0 +1,18 @@
+digraph plan {
+  rankdir=LR;
+  "generate" [label="generate\n0.230 s"];
+  "context" [label="context\n0.500 s"];
+  "clean" [label="clean\n0.210 s"];
+  "statistics" [label="statistics\n0.700 s"];
+  "anomalies" [label="anomalies\n0.850 s"];
+  "histogram" [label="histogram\n0.600 s"];
+  "summary" [label="summary\n0.170 s"];
+  "anomalies" -> "summary";
+  "clean" -> "anomalies";
+  "clean" -> "histogram";
+  "clean" -> "statistics";
+  "context" -> "summary";
+  "generate" -> "clean";
+  "histogram" -> "summary";
+  "statistics" -> "summary";
+}

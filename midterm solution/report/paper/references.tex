@@ -1,0 +1,60 @@
+\clearpage
+\typeout{MIDTERM_BODY_PAGES=\number\numexpr\value{page}-1\relax}
+\begin{thebibliography}{6}
+\bibitem{jev} TypeSafe, System One API y Choice.
+\url{https://docs.typesafe.ai/api/system-one}.
+Consulta: 23 de octubre de 2026.
+\bibitem{kahn} A. B. Kahn, Topological sorting of large networks,
+\emph{Communications of the ACM}, vol. 5, no. 11, pp. 558--562, 1962.
+doi: \href{https://doi.org/10.1145/368996.369025}{10.1145/368996.369025}.
+\bibitem{mcp} Model Context Protocol, Python SDK, v1.x.
+\url{https://github.com/modelcontextprotocol/python-sdk/tree/v1.x}.
+Consulta: 23 de octubre de 2026.
+\bibitem{mpi} mpi4py, Tutorial e Installation, versión 4.1.2.
+\url{https://mpi4py.github.io/mpi4py/stable/html/tutorial.html}.
+Consulta: 23 de octubre de 2026.
+\bibitem{graham} R. L. Graham, Bounds on multiprocessing timing
+anomalies, \emph{SIAM Journal on Applied Mathematics}, vol. 17,
+no. 2, pp. 416--429, 1969.
+doi: \href{https://doi.org/10.1137/0117039}{10.1137/0117039}.
+\bibitem{heft} H. Topcuoglu, S. Hariri y M.-Y. Wu,
+Performance-effective and low-complexity task scheduling for
+heterogeneous computing, \emph{IEEE Transactions on Parallel and
+Distributed Systems}, vol. 13, no. 3, pp. 260--274, 2002.
+doi: \href{https://doi.org/10.1109/71.993206}{10.1109/71.993206}.
+\end{thebibliography}
+
+\appendices
+\section{Reproducción}
+Desde la carpeta del proyecto:
+\begin{verbatim}
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-lock.txt
+python -m unittest discover -s tests -v
+python scripts/evaluate.py
+python scripts/benchmark_mpi.py
+\end{verbatim}
+\newpage
+Para MCP real distribuido:
+\begin{verbatim}
+mpiexec -n 4 python -m midterm run \
+ examples/mcp_plan.json --backend mpi \
+ --no-history --output results/mpi_mcp.json
+\end{verbatim}
+La evaluación local está en \texttt{results/evaluation.json}; las
+referencias, en \texttt{experiments/golden.json}. Los tiempos excluyen
+análisis Jev y arranque MPI, pero incluyen procesos por tarea y sesiones
+MCP cuando corresponde. La plataforma fue macOS arm64, con el mismo
+intérprete entre métodos.
+\texttt{results/scaling.json} y su CSV identifican doce ensayos MPI
+exploratorios. \texttt{results/mpi.json} verifica siete tareas en cinco
+ranks; \texttt{results/mpi\_mcp.json}, herramientas MCP en cuatro ranks.
+No se midieron energía ni varios nodos.
+
+\section{Formato y entrega}
+Las fuentes usan \texttt{IEEEtran}, modo \texttt{conference}, dos
+columnas. Las referencias y estos apéndices se separan del cuerpo.
+Se conserva \texttt{ID} en el archivo para que los autores añadan
+sus identificadores. Q1--Q5 y M1--M4 distinguen implementación
+verificada de trabajo planeado.

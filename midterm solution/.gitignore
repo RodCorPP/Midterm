@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.env
+results/*.sqlite*
+report/paper/*.aux
+report/paper/*.log
+report/paper/*.out
+report/paper/main.pdf

@@ -1,0 +1,565 @@
+{
+  "plan": "Análisis paralelo de datos para un agente MCP",
+  "backend": "sequential",
+  "workers": 1,
+  "ok": true,
+  "makespan_seconds": 3.725883499995689,
+  "worker_busy_seconds": 3.7239041659777286,
+  "utilization": 0.9994687611628322,
+  "states": {
+    "generate": "succeeded",
+    "context": "succeeded",
+    "clean": "succeeded",
+    "statistics": "succeeded",
+    "anomalies": "succeeded",
+    "histogram": "succeeded",
+    "summary": "succeeded"
+  },
+  "attempts": {
+    "generate": 1,
+    "context": 1,
+    "clean": 1,
+    "statistics": 1,
+    "anomalies": 1,
+    "histogram": 1,
+    "summary": 1
+  },
+  "errors": {},
+  "results": {
+    "generate": {
+      "values": [
+        48.209,
+        53.58,
+        48.417,
+        47.795,
+        43.49,
+        48.507,
+        57.783,
+        52.969,
+        57.258,
+        51.742,
+        52.763,
+        51.297,
+        38.338,
+        55.987,
+        53.545,
+        53.492,
+        38.16,
+        37.793,
+        43.773,
+        46.723,
+        52.138,
+        49.679,
+        53.647,
+        45.504,
+        52.161,
+        52.759,
+        45.372,
+        62.023,
+        53.896,
+        58.379,
+        45.658,
+        44.823,
+        47.592,
+        49.255,
+        54.425,
+        51.739,
+        46.869,
+        43.302,
+        46.356,
+        58.546,
+        44.344,
+        51.713,
+        52.986,
+        39.572,
+        50.339,
+        59.144,
+        35.899,
+        47.749,
+        49.257,
+        44.279,
+        53.482,
+        49.564,
+        39.747,
+        55.795,
+        54.685,
+        56.621,
+        60.084,
+        52.536,
+        50.835,
+        40.906,
+        54.308,
+        45.718,
+        46.831,
+        41.146,
+        43.227,
+        46.282,
+        59.022,
+        35.777,
+        39.796,
+        51.675,
+        60.103,
+        54.049,
+        36.7,
+        32.372,
+        52.502,
+        44.846,
+        42.161,
+        56.842,
+        57.713,
+        51.101,
+        51.72,
+        53.041,
+        61.158,
+        54.333,
+        53.631,
+        53.834,
+        39.022,
+        58.972,
+        56.686,
+        53.707,
+        36.183,
+        45.564,
+        55.896,
+        37.322,
+        48.712,
+        57.137,
+        40.822,
+        61.271,
+        53.864,
+        48.949,
+        52.274,
+        54.549,
+        50.843,
+        58.02,
+        45.369,
+        47.097,
+        57.292,
+        50.188,
+        43.837,
+        56.625,
+        60.258,
+        46.886,
+        40.34,
+        49.057,
+        48.957,
+        47.914,
+        59.833,
+        42.811,
+        58.824,
+        41.122,
+        120.0,
+        130.0
+      ],
+      "source": "synthetic_seeded"
+    },
+    "clean": {
+      "values": [
+        48.209,
+        53.58,
+        48.417,
+        47.795,
+        43.49,
+        48.507,
+        57.783,
+        52.969,
+        57.258,
+        51.742,
+        52.763,
+        51.297,
+        38.338,
+        55.987,
+        53.545,
+        53.492,
+        38.16,
+        37.793,
+        43.773,
+        46.723,
+        52.138,
+        49.679,
+        53.647,
+        45.504,
+        52.161,
+        52.759,
+        45.372,
+        62.023,
+        53.896,
+        58.379,
+        45.658,
+        44.823,
+        47.592,
+        49.255,
+        54.425,
+        51.739,
+        46.869,
+        43.302,
+        46.356,
+        58.546,
+        44.344,
+        51.713,
+        52.986,
+        39.572,
+        50.339,
+        59.144,
+        35.899,
+        47.749,
+        49.257,
+        44.279,
+        53.482,
+        49.564,
+        39.747,
+        55.795,
+        54.685,
+        56.621,
+        60.084,
+        52.536,
+        50.835,
+        40.906,
+        54.308,
+        45.718,
+        46.831,
+        41.146,
+        43.227,
+        46.282,
+        59.022,
+        35.777,
+        39.796,
+        51.675,
+        60.103,
+        54.049,
+        36.7,
+        32.372,
+        52.502,
+        44.846,
+        42.161,
+        56.842,
+        57.713,
+        51.101,
+        51.72,
+        53.041,
+        61.158,
+        54.333,
+        53.631,
+        53.834,
+        39.022,
+        58.972,
+        56.686,
+        53.707,
+        36.183,
+        45.564,
+        55.896,
+        37.322,
+        48.712,
+        57.137,
+        40.822,
+        61.271,
+        53.864,
+        48.949,
+        52.274,
+        54.549,
+        50.843,
+        58.02,
+        45.369,
+        47.097,
+        57.292,
+        50.188,
+        43.837,
+        56.625,
+        60.258,
+        46.886,
+        40.34,
+        49.057,
+        48.957,
+        47.914,
+        59.833,
+        42.811,
+        58.824,
+        41.122,
+        120.0,
+        130.0
+      ],
+      "removed": 0
+    },
+    "anomalies": {
+      "method": "population_z_score",
+      "threshold": 3,
+      "outliers": [
+        {
+          "index": 120,
+          "value": 120.0,
+          "z": 5.914995648859291
+        },
+        {
+          "index": 121,
+          "value": 130.0,
+          "z": 6.772177447557171
+        }
+      ]
+    },
+    "statistics": {
+      "count": 122,
+      "mean": 50.99485245901639,
+      "median": 50.972,
+      "stddev": 11.6661366529139,
+      "min": 32.372,
+      "max": 130.0
+    },
+    "histogram": {
+      "counts": [
+        18,
+        50,
+        51,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "minimum": 32.372,
+      "maximum": 130.0,
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 560 310\"><rect width=\"100%\" height=\"100%\" fill=\"white\"/><text x=\"30\" y=\"25\" font-family=\"sans-serif\" font-size=\"18\">Distribución de valores</text><rect x=\"45\" y=\"185.9\" width=\"38\" height=\"74.1\" fill=\"#2563eb\"/><rect x=\"91\" y=\"54.1\" width=\"38\" height=\"205.9\" fill=\"#2563eb\"/><rect x=\"137\" y=\"50.0\" width=\"38\" height=\"210.0\" fill=\"#2563eb\"/><rect x=\"183\" y=\"255.9\" width=\"38\" height=\"4.1\" fill=\"#2563eb\"/><rect x=\"229\" y=\"260.0\" width=\"38\" height=\"0.0\" fill=\"#2563eb\"/><rect x=\"275\" y=\"260.0\" width=\"38\" height=\"0.0\" fill=\"#2563eb\"/><rect x=\"321\" y=\"260.0\" width=\"38\" height=\"0.0\" fill=\"#2563eb\"/><rect x=\"367\" y=\"260.0\" width=\"38\" height=\"0.0\" fill=\"#2563eb\"/><rect x=\"413\" y=\"255.9\" width=\"38\" height=\"4.1\" fill=\"#2563eb\"/><rect x=\"459\" y=\"255.9\" width=\"38\" height=\"4.1\" fill=\"#2563eb\"/><text x=\"30\" y=\"295\" font-family=\"sans-serif\">Mínimo 32.4 · Máximo 130.0 · n=122</text></svg>"
+    },
+    "context": {
+      "topic": "Demostración académica",
+      "source": "local_fixture"
+    },
+    "summary": {
+      "markdown": "# Análisis de datos\n\nSe analizaron 122 observaciones. La media es 50.995 y la desviación estándar poblacional es 11.666.\n\nSe detectaron 2 anomalías con el método de puntuación z.\n\nEl conjunto es sintético y reproducible; los resultados describen exclusivamente este ejemplo.\n",
+      "statistics": {
+        "count": 122,
+        "mean": 50.99485245901639,
+        "median": 50.972,
+        "stddev": 11.6661366529139,
+        "min": 32.372,
+        "max": 130.0
+      },
+      "anomalies": {
+        "method": "population_z_score",
+        "threshold": 3,
+        "outliers": [
+          {
+            "index": 120,
+            "value": 120.0,
+            "z": 5.914995648859291
+          },
+          {
+            "index": 121,
+            "value": 130.0,
+            "z": 6.772177447557171
+          }
+        ]
+      }
+    }
+  },
+  "events": [
+    {
+      "task": "generate",
+      "worker": 1,
+      "attempt": 1,
+      "start_seconds": 2.866699651349336e-05,
+      "end_seconds": 0.33000162499956787,
+      "duration_seconds": 0.32960462498886045,
+      "status": "succeeded",
+      "predicted_seconds": 0.23
+    },
+    {
+      "task": "clean",
+      "worker": 1,
+      "attempt": 1,
+      "start_seconds": 0.3300565829995321,
+      "end_seconds": 0.63814020800055,
+      "duration_seconds": 0.3078305830131285,
+      "status": "succeeded",
+      "predicted_seconds": 0.21
+    },
+    {
+      "task": "anomalies",
+      "worker": 1,
+      "attempt": 1,
+      "start_seconds": 0.6381752500019502,
+      "end_seconds": 1.5485556670028018,
+      "duration_seconds": 0.9101964159926865,
+      "status": "succeeded",
+      "predicted_seconds": 0.85
+    },
+    {
+      "task": "statistics",
+      "worker": 1,
+      "attempt": 1,
+      "start_seconds": 1.5485806250071619,
+      "end_seconds": 2.302669541997602,
+      "duration_seconds": 0.7538695830007782,
+      "status": "succeeded",
+      "predicted_seconds": 0.7
+    },
+    {
+      "task": "histogram",
+      "worker": 1,
+      "attempt": 1,
+      "start_seconds": 2.3027084170025773,
+      "end_seconds": 2.9453016670013312,
+      "duration_seconds": 0.6423827919934411,
+      "status": "succeeded",
+      "predicted_seconds": 0.6
+    },
+    {
+      "task": "context",
+      "worker": 1,
+      "attempt": 1,
+      "start_seconds": 2.94532304200402,
+      "end_seconds": 3.497236167007941,
+      "duration_seconds": 0.5516776669974206,
+      "status": "succeeded",
+      "predicted_seconds": 0.5
+    },
+    {
+      "task": "summary",
+      "worker": 1,
+      "attempt": 1,
+      "start_seconds": 3.4972781670076074,
+      "end_seconds": 3.725862999999663,
+      "duration_seconds": 0.2283424999914132,
+      "status": "succeeded",
+      "predicted_seconds": 0.17
+    }
+  ],
+  "analysis": {
+    "provider": "heuristic",
+    "weight_sources": {
+      "generate": "explicit",
+      "context": "explicit",
+      "clean": "explicit",
+      "statistics": "explicit",
+      "anomalies": "explicit",
+      "histogram": "explicit",
+      "summary": "explicit"
+    },
+    "jev_decisions": [],
+    "notes": [
+      "Heuristic es una línea base determinista; no invoca al modelo Jev."
+    ]
+  },
+  "dag": {
+    "nodes": [
+      {
+        "id": "generate",
+        "tool": "data.generate",
+        "weight_seconds": 0.23,
+        "bottom_level": 1.46
+      },
+      {
+        "id": "context",
+        "tool": "demo.echo",
+        "weight_seconds": 0.5,
+        "bottom_level": 0.67
+      },
+      {
+        "id": "clean",
+        "tool": "data.clean",
+        "weight_seconds": 0.21,
+        "bottom_level": 1.23
+      },
+      {
+        "id": "statistics",
+        "tool": "stats.describe",
+        "weight_seconds": 0.7,
+        "bottom_level": 0.87
+      },
+      {
+        "id": "anomalies",
+        "tool": "stats.anomalies",
+        "weight_seconds": 0.85,
+        "bottom_level": 1.02
+      },
+      {
+        "id": "histogram",
+        "tool": "chart.histogram",
+        "weight_seconds": 0.6,
+        "bottom_level": 0.77
+      },
+      {
+        "id": "summary",
+        "tool": "report.compose",
+        "weight_seconds": 0.17,
+        "bottom_level": 0.17
+      }
+    ],
+    "edges": [
+      {
+        "from": "anomalies",
+        "to": "summary",
+        "reasons": [
+          "result_reference",
+          "description_mentions:anomaly_result"
+        ]
+      },
+      {
+        "from": "clean",
+        "to": "anomalies",
+        "reasons": [
+          "result_reference",
+          "description_mentions:clean_data"
+        ]
+      },
+      {
+        "from": "clean",
+        "to": "histogram",
+        "reasons": [
+          "result_reference",
+          "description_mentions:clean_data"
+        ]
+      },
+      {
+        "from": "clean",
+        "to": "statistics",
+        "reasons": [
+          "result_reference",
+          "description_mentions:clean_data"
+        ]
+      },
+      {
+        "from": "context",
+        "to": "summary",
+        "reasons": [
+          "result_reference"
+        ]
+      },
+      {
+        "from": "generate",
+        "to": "clean",
+        "reasons": [
+          "result_reference",
+          "description_mentions:raw_data"
+        ]
+      },
+      {
+        "from": "histogram",
+        "to": "summary",
+        "reasons": [
+          "result_reference"
+        ]
+      },
+      {
+        "from": "statistics",
+        "to": "summary",
+        "reasons": [
+          "result_reference",
+          "description_mentions:descriptive_stats"
+        ]
+      }
+    ],
+    "topological_order": [
+      "generate",
+      "context",
+      "clean",
+      "statistics",
+      "anomalies",
+      "histogram",
+      "summary"
+    ],
+    "critical_path_seconds": 1.46,
+    "total_work_seconds": 3.26
+  }
+}

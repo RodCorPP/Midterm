@@ -1,0 +1,4 @@
+# Dependencias opcionales para el proyecto completo.
+mpi4py>=4.1,<5
+mcp>=1.28,<2
+# Instala mpich aparte si no tienes un runtime MPI compatible.

@@ -1,0 +1,13 @@
+{
+  "plan": "Análisis paralelo de datos para un agente MCP",
+  "backend": "local",
+  "workers": 4,
+  "sequential_seconds": 3.725883499995689,
+  "parallel_seconds": 1.6764501670113532,
+  "speedup": 2.222483896815083,
+  "efficiency": 0.5556209742037708,
+  "same_results": true,
+  "all_succeeded": true,
+  "note": "Medición local con procesos de tarea; no representa un clúster MPI. Reejecuta planes con efectos externos solo si son seguros de repetir.",
+  "estimated_critical_path_seconds": 1.46
+}

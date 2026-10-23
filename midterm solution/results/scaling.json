@@ -1,0 +1,118 @@
+{
+  "plan": "examples/analysis_plan.json",
+  "repeats": 3,
+  "same_results": true,
+  "scope": "Varios procesos en una sola computadora; latencia sintética, sin costo de análisis ni arranque MPI",
+  "summary": [
+    {
+      "backend": "sequential",
+      "workers": 1,
+      "median_seconds": 3.6741454169969074,
+      "min_seconds": 3.664757959006238,
+      "max_seconds": 3.681006625003647,
+      "speedup": 1.0,
+      "efficiency": 1.0
+    },
+    {
+      "backend": "mpi",
+      "workers": 1,
+      "median_seconds": 3.7234365830081515,
+      "min_seconds": 3.6709975830017356,
+      "max_seconds": 4.390435791006894,
+      "speedup": 0.9867619160653404,
+      "efficiency": 0.9867619160653404
+    },
+    {
+      "backend": "mpi",
+      "workers": 2,
+      "median_seconds": 2.2558029999927385,
+      "min_seconds": 2.2023347500071395,
+      "max_seconds": 2.7172774170030607,
+      "speedup": 1.6287527842673915,
+      "efficiency": 0.8143763921336957
+    },
+    {
+      "backend": "mpi",
+      "workers": 4,
+      "median_seconds": 2.471878750002361,
+      "min_seconds": 1.7904865829914343,
+      "max_seconds": 2.954219874998671,
+      "speedup": 1.4863776862005866,
+      "efficiency": 0.37159442155014666
+    }
+  ],
+  "trials": [
+    {
+      "backend": "sequential",
+      "workers": 1,
+      "trial": 1,
+      "makespan_seconds": 3.664757959006238
+    },
+    {
+      "backend": "mpi",
+      "workers": 1,
+      "trial": 1,
+      "makespan_seconds": 3.7234365830081515
+    },
+    {
+      "backend": "mpi",
+      "workers": 2,
+      "trial": 1,
+      "makespan_seconds": 2.2558029999927385
+    },
+    {
+      "backend": "mpi",
+      "workers": 4,
+      "trial": 1,
+      "makespan_seconds": 1.7904865829914343
+    },
+    {
+      "backend": "sequential",
+      "workers": 1,
+      "trial": 2,
+      "makespan_seconds": 3.6741454169969074
+    },
+    {
+      "backend": "mpi",
+      "workers": 1,
+      "trial": 2,
+      "makespan_seconds": 4.390435791006894
+    },
+    {
+      "backend": "mpi",
+      "workers": 2,
+      "trial": 2,
+      "makespan_seconds": 2.7172774170030607
+    },
+    {
+      "backend": "mpi",
+      "workers": 4,
+      "trial": 2,
+      "makespan_seconds": 2.954219874998671
+    },
+    {
+      "backend": "sequential",
+      "workers": 1,
+      "trial": 3,
+      "makespan_seconds": 3.681006625003647
+    },
+    {
+      "backend": "mpi",
+      "workers": 1,
+      "trial": 3,
+      "makespan_seconds": 3.6709975830017356
+    },
+    {
+      "backend": "mpi",
+      "workers": 2,
+      "trial": 3,
+      "makespan_seconds": 2.2023347500071395
+    },
+    {
+      "backend": "mpi",
+      "workers": 4,
+      "trial": 3,
+      "makespan_seconds": 2.471878750002361
+    }
+  ]
+}

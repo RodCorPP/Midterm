@@ -1,0 +1,283 @@
+{
+  "plan": "Herramientas MCP reales sobre stdio",
+  "backend": "local",
+  "workers": 3,
+  "ok": true,
+  "makespan_seconds": 3.679418333005742,
+  "worker_busy_seconds": 4.796399208993535,
+  "utilization": 0.4345251318637388,
+  "states": {
+    "generate": "succeeded",
+    "statistics": "succeeded",
+    "anomalies": "succeeded",
+    "summary": "succeeded"
+  },
+  "attempts": {
+    "generate": 1,
+    "statistics": 1,
+    "anomalies": 1,
+    "summary": 1
+  },
+  "errors": {},
+  "results": {
+    "generate": {
+      "values": [
+        48.209,
+        53.58,
+        48.417,
+        47.795,
+        43.49,
+        48.507,
+        57.783,
+        52.969,
+        57.258,
+        51.742,
+        52.763,
+        51.297,
+        38.338,
+        55.987,
+        53.545,
+        53.492,
+        38.16,
+        37.793,
+        43.773,
+        46.723,
+        52.138,
+        49.679,
+        53.647,
+        45.504,
+        52.161,
+        52.759,
+        45.372,
+        62.023,
+        53.896,
+        58.379,
+        45.658,
+        44.823,
+        47.592,
+        49.255,
+        54.425,
+        51.739,
+        46.869,
+        43.302,
+        46.356,
+        58.546,
+        44.344,
+        51.713,
+        52.986,
+        39.572,
+        50.339,
+        59.144,
+        35.899,
+        47.749,
+        49.257,
+        44.279,
+        53.482,
+        49.564,
+        39.747,
+        55.795,
+        54.685,
+        56.621,
+        60.084,
+        52.536,
+        50.835,
+        40.906,
+        54.308,
+        45.718,
+        46.831,
+        41.146,
+        43.227,
+        46.282,
+        59.022,
+        35.777,
+        39.796,
+        51.675,
+        60.103,
+        54.049,
+        36.7,
+        32.372,
+        52.502,
+        44.846,
+        42.161,
+        56.842,
+        57.713,
+        51.101,
+        120.0,
+        130.0
+      ],
+      "source": "synthetic_seeded"
+    },
+    "statistics": {
+      "count": 82,
+      "mean": 51.06648780487805,
+      "median": 50.587,
+      "stddev": 13.401515273121355,
+      "min": 32.372,
+      "max": 130.0
+    },
+    "anomalies": {
+      "method": "population_z_score",
+      "threshold": 3,
+      "outliers": [
+        {
+          "index": 80,
+          "value": 120.0,
+          "z": 5.143710303668266
+        },
+        {
+          "index": 81,
+          "value": 130.0,
+          "z": 5.889894581804069
+        }
+      ]
+    },
+    "summary": {
+      "markdown": "# Análisis de datos\n\nSe analizaron 82 observaciones. La media es 51.066 y la desviación estándar poblacional es 13.402.\n\nSe detectaron 2 anomalías con el método de puntuación z.\n\nEl conjunto es sintético y reproducible; los resultados describen exclusivamente este ejemplo.\n",
+      "statistics": {
+        "count": 82,
+        "mean": 51.06648780487805,
+        "median": 50.587,
+        "stddev": 13.401515273121355,
+        "min": 32.372,
+        "max": 130.0
+      },
+      "anomalies": {
+        "method": "population_z_score",
+        "threshold": 3,
+        "outliers": [
+          {
+            "index": 80,
+            "value": 120.0,
+            "z": 5.143710303668266
+          },
+          {
+            "index": 81,
+            "value": 130.0,
+            "z": 5.889894581804069
+          }
+        ]
+      }
+    }
+  },
+  "events": [
+    {
+      "task": "generate",
+      "worker": 1,
+      "attempt": 1,
+      "start_seconds": 1.912500010803342e-05,
+      "end_seconds": 1.5801619160047267,
+      "duration_seconds": 1.5798709590017097,
+      "status": "succeeded",
+      "predicted_seconds": 0.7
+    },
+    {
+      "task": "statistics",
+      "worker": 2,
+      "attempt": 1,
+      "start_seconds": 1.580241957999533,
+      "end_seconds": 2.698613500004285,
+      "duration_seconds": 1.1178318330057664,
+      "status": "succeeded",
+      "predicted_seconds": 0.9
+    },
+    {
+      "task": "anomalies",
+      "worker": 1,
+      "attempt": 1,
+      "start_seconds": 1.5802080830035266,
+      "end_seconds": 2.791117083004792,
+      "duration_seconds": 1.210687541999505,
+      "status": "succeeded",
+      "predicted_seconds": 1.0
+    },
+    {
+      "task": "summary",
+      "worker": 1,
+      "attempt": 1,
+      "start_seconds": 2.791204249995644,
+      "end_seconds": 3.679408208001405,
+      "duration_seconds": 0.8880088749865536,
+      "status": "succeeded",
+      "predicted_seconds": 0.7
+    }
+  ],
+  "analysis": {
+    "provider": "heuristic",
+    "weight_sources": {
+      "generate": "explicit",
+      "statistics": "explicit",
+      "anomalies": "explicit",
+      "summary": "explicit"
+    },
+    "jev_decisions": [],
+    "notes": [
+      "Heuristic es una línea base determinista; no invoca al modelo Jev."
+    ]
+  },
+  "dag": {
+    "nodes": [
+      {
+        "id": "generate",
+        "tool": "generate",
+        "weight_seconds": 0.7,
+        "bottom_level": 2.4
+      },
+      {
+        "id": "statistics",
+        "tool": "describe",
+        "weight_seconds": 0.9,
+        "bottom_level": 1.6
+      },
+      {
+        "id": "anomalies",
+        "tool": "anomalies",
+        "weight_seconds": 1.0,
+        "bottom_level": 1.7
+      },
+      {
+        "id": "summary",
+        "tool": "compose",
+        "weight_seconds": 0.7,
+        "bottom_level": 0.7
+      }
+    ],
+    "edges": [
+      {
+        "from": "anomalies",
+        "to": "summary",
+        "reasons": [
+          "result_reference"
+        ]
+      },
+      {
+        "from": "generate",
+        "to": "anomalies",
+        "reasons": [
+          "result_reference"
+        ]
+      },
+      {
+        "from": "generate",
+        "to": "statistics",
+        "reasons": [
+          "result_reference"
+        ]
+      },
+      {
+        "from": "statistics",
+        "to": "summary",
+        "reasons": [
+          "result_reference"
+        ]
+      }
+    ],
+    "topological_order": [
+      "generate",
+      "statistics",
+      "anomalies",
+      "summary"
+    ],
+    "critical_path_seconds": 2.4,
+    "total_work_seconds": 3.3
+  }
+}

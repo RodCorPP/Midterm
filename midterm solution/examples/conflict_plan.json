@@ -1,0 +1,9 @@
+{
+  "name": "Conflictos de acceso a un recurso compartido",
+  "tasks": [
+    {"id": "read_a", "tool": "demo.echo", "arguments": {"value": "lectura A", "delay_seconds": 0.2}, "resources": {"dataset": "read"}},
+    {"id": "read_b", "tool": "demo.echo", "arguments": {"value": "lectura B", "delay_seconds": 0.2}, "resources": {"dataset": "read"}},
+    {"id": "write", "tool": "demo.echo", "arguments": {"value": "escritura simulada", "delay_seconds": 0.2}, "resources": {"dataset": "write"}},
+    {"id": "read_after", "tool": "demo.echo", "arguments": {"value": "lectura posterior", "delay_seconds": 0.2}, "resources": {"dataset": "read"}}
+  ]
+}

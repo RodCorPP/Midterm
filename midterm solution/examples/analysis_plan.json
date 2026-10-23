@@ -1,0 +1,12 @@
+{
+  "name": "Análisis paralelo de datos para un agente MCP",
+  "tasks": [
+    {"id": "generate", "tool": "data.generate", "description": "Crear un conjunto de datos sintético reproducible", "arguments": {"count": 120, "seed": 7, "delay_seconds": 0.18}, "produces": ["raw_data"], "estimated_seconds": 0.23},
+    {"id": "context", "tool": "demo.echo", "description": "Consultar contexto independiente de los datos", "arguments": {"value": {"topic": "Demostración académica", "source": "local_fixture"}, "delay_seconds": 0.45}, "estimated_seconds": 0.50},
+    {"id": "clean", "tool": "data.clean", "description": "Limpiar raw_data y descartar valores inválidos", "arguments": {"values": {"$ref": "generate.result.values"}, "delay_seconds": 0.16}, "produces": ["clean_data"], "estimated_seconds": 0.21},
+    {"id": "statistics", "tool": "stats.describe", "description": "Calcular estadísticas de clean_data", "arguments": {"values": {"$ref": "clean.result.values"}, "delay_seconds": 0.65}, "produces": ["descriptive_stats"], "estimated_seconds": 0.70},
+    {"id": "anomalies", "tool": "stats.anomalies", "description": "Detectar anomalías de clean_data", "arguments": {"values": {"$ref": "clean.result.values"}, "z_threshold": 3, "delay_seconds": 0.80}, "produces": ["anomaly_result"], "estimated_seconds": 0.85},
+    {"id": "histogram", "tool": "chart.histogram", "description": "Visualizar la distribución de clean_data", "arguments": {"values": {"$ref": "clean.result.values"}, "bins": 10, "delay_seconds": 0.55}, "produces": ["distribution_chart"], "estimated_seconds": 0.60},
+    {"id": "summary", "tool": "report.compose", "description": "Redactar conclusiones a partir de descriptive_stats y anomaly_result", "arguments": {"statistics": {"$ref": "statistics.result"}, "anomalies": {"$ref": "anomalies.result"}, "chart": {"$ref": "histogram.result.counts"}, "context": {"$ref": "context.result"}, "delay_seconds": 0.12}, "estimated_seconds": 0.17}
+  ]
+}
